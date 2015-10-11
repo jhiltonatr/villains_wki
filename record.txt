@@ -14,3 +14,57 @@ Porque siempre hablar de los heroes, si ellos sólo son tan buenos como los vill
 El proyecto que trabajaremos será una wiki sobre esos personajes cuyos sus ideales y valores difieren de lo que muchos aceptan como bueno o justo, pero sin embargo sus historias nos atrapan y, que aunque algunos no quieran aceptarlo, nos apasionan. 
 Así que sin más carreta, contruyamos una wiki de villanos.
 
+----------------------------------------------
+	0. Antes de empezar
+----------------------------------------------
+Quisiera agradecerle a una persona muy importante en mi vida, ya que no sería nada sin esa persona, ni siquiera podría estar escribiendo toda esto (No tengan ideas niños... Hey tu! baja ese arma!!), esa persona que me ha acompañado a salir de las malas situaciones de la vida.... Gracias YO, de no ser por ti, hoy no estaríamos aquí. (Algunos se preguntaran eso que tiene de bueno, no?? jajajajaja)
+
+Dejando las bromas de lado, quisiera escribir algunas líneas de desarrollo, que se seguirán durante el ejercicio.
+一つ (1.) Trabajaremos sobre un servidor Tomcat (esto podría cambiar en alguno de los ejercicios subsiguientes).
+二つ　(2.) Trabajaremos con la versión JAVA 1.6 (esto podría cambiar en alguno de los ejercicios subsiguientes).
+三つ　(3.) Cada commit en el repositorio representa un paso adicional en el proceso, y nos ayudará a documentar todo el proceso de desarrolo, y su evolución.
+四つ　(4.) Si en el camino me doy cuenta que falto documentar algo, es posible que las secciones ya escritas cambien, pero intantaré documentar los cambios hechos para evitar confuciones, y que se omita información valiosa.
+五つ　(5.) El código aquí escrito es completamente de uso libre, y sólo tiene propósito de aprendizaje, así que por favor si les parece interesante y creen que le puede ayudar a alguien más, REPARTANLO. (el código aclaro, lo demás corre por su cuenta, y no me interesa saberlo)
+六つ　(6.) El IDE de desarrollo que usaré es eclipse, pero pueden usar el IDE de su elección. USare encoding UTF-8 para todo, así que por favor configuren sus IDEs de esta manera para que no se encuentren caracteres raros en los ejercicios.
+六つ　(6.) En cuanto a instalacion de servidor, o del IDE... ya que trabajaré con las instalaciones por defecto, no lo voy a cubrir en estos ejercicios, sin embargo, si se requiere una configuración adicional, es posible que mencione algunos pasos para configurar.... o es posible que sólo la mencione.... SI soy peresozo y que!!
+
+----------------------------------------------
+	1. Regreso al pasado
+----------------------------------------------
+Como el propósito del ejercicio es mostrar desde lo más básico, regresemos un poco en el tiempo y trabajemos con una de las primeras tecnologías Web que nos afreció JAVA al incurrir en la Web. Si señoras y señores, estamos hablando del JSP.
+Aclaremos algo antes de que saquen sus antorchas y me tachen de hereje (porque aceptemoslo, hoy en día quien usa JSP y mucho menos con las prácticas que encontramos en este código??):
+Premisas de construcción del código:
+- El ejercicio se desarrollará de la forma MÁS sencilla posible, sin importar que se quebranten lás prácticas aceptadas por la comunidad hoy día. (Ya que estamos viajando en el tiempo, no tiene sentido pensar cómo lo haríamos en el presente)
+- Si este paso les parece muy sencillo, burdo, o insultante a sus maravillosas habilidades, se pueden ir al infierno, para lo que me importa.
+- Ya que partiremos de lo más básico, entre lo básico, construiremos sólo una página que nos ayude a consultar la información de un villano dado el nombre exacto de este.
+- Además NO tendremos una base de datos donde tenemos almacenados está información... (Qué?? el director está borracho, o que?? Entonces como espera obtener la información??) Bueno, pues vean el código y se darán cuenta..... (Niños, niños.... BAJEN ESTAS ARTOCHAS POR EL AMOR DE LA DEIDAD DE SU ELECCIÓN)
+
+----------------------------------------------
+	1.1 Creando nuestra primera JSP (No es hermosa?? Quemenla antes de que se reproduzca)
+----------------------------------------------
+Para quienes no estan familiarizados con el concepto de una página JSP, hagamos una breve introducción:
+En los principios de la arquitectura Web de Java, la base de toda página eran los servlets. Unas clases Java, quienes tenían control de como se reenderizaba la presentación de las vistas. Por ende podían, o más bien, se debía construir el html de la página en ellas (muchas veces como cadenas) y enviarlo al navegador para mostrarle la página generada al usuario. Y algunos nos filosofaremos... que problemas conlleva esto?? Si lo miramos hoy día la verdad muchos, algunos de los errores más comunes que se me ocurren, son el riesgo de inyección de HTML.... se debe usar el objeto Printer, para bajar el html o los datos al navegador... no se encontraba muy preparado para la utilizacion de Beans...
+
+Así que en una de las evoluciones de la arquitectura Web de Java aparecieron las JSP como una alternativa de presentación a los servlets, donde lo que se buscaba era que la página fuera un fichero de texto, e incrustar código en las secciones que fuera necesario, para ello podemos usar los tags <% something = another; %>, y <%= something%> (en el siguiente parrafo veremos la simple diferencia entre los dos tags), además tenemos acceso inmediato a los objetos "request", "response", "session", "out" (similar al Printer de los servlets que mencioné antes). 
+
+El tag <% something = another; %> ejecuta la sección de código que encierra, pero no hace ninguna modificación sobre el html de la página, mientras que el tag 
+ <%= something%> imprimirá en la página el valor de la variable "something" (asumiendo que la variable esté declarada).
+ 
+Sin embargo, una JSP al ejecutarse en el servidor de aplicaciones, termina convirtiendose en un servlet. Por lo que mayor facilidad que nos brindará es la edición del HTML como si fuera un archivo de texto normal.
+ 
+
+Como pueden ver en el proyecto, sólo tenemos un proyecto WAR (Because f*ck you, that's why) para empaquetar nuestra página WEB. Como dije antes, estaremos usando el servidor Tomcat, así que sólo podremos desplegar archivos WAR.
+También nuestro IDE lo configuramos para que el encoding de todos archivos quede como UTF-8, estó nos ayudará en la visualización de las páginas, y a evitar que tengamos carácteres extraños en nuestro código.
+Además recordando que estamos en el pasado... (aunque tampoco quiero volver mucho) nuestro proyecto web esta configurado con la definición 2.5 de un dynamic web module.
+Si entramos al navegador y vamos a la ruta de la página: http:localhost:<puerto>/villains-wiki-web/consultar_villano.jsp
+Podremos ver nuestra primera página funcionando.... y si inspeccionamos el código podemos ver el uso de los tags de jsp antes descritos, así como el uso del objeto "out" para pintar en la JSP.
+
+
+Como ejercicio final.... que de malo le vemos a esta página?? (seamos francos.... tiene mucho por mejorar)
+1. No tenemos una base de datos, por ahora nos contentamos con simularla en memoria.
+2. Dado que cada petición requiere que la página se ejecute nuevamente, la base de datos simulada se crea en memoria durante CADA UNA de esas peticiones. Esto implica que cada petición tiene su propia base de datos, y el consumo de memoria se verá afectado por el aumento de peticiones en el sitio.
+3. No tenemos validaciones... incluso si sólo entramos a la página tenemos inmediatamente un mensaje que indica que no hemos encontrado al villano, AUN cuando no hemos buscado a nadie
+4. No es una implementación homogenea, ya que algunas veces usamos el tag <%= %>, y otras veces usamoes el objeto "out".
+5. I dare you... I double dare you motherf*cker a agregar las siguientes entradas en nuestra BD simulada y busquen a Jules Winnfield y a Me.
+myVillainsData.put("Jules Winnfield", "<img src=\"http://goo.gl/B9XoGk\"");
+myVillainsData.put("Me", "<img src=\"http://goo.gl/ICL6J7\"");

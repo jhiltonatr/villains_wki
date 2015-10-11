@@ -113,3 +113,4 @@ Y el día de hoy dejamos quemar el chuzo, toda la información de nuestros amado
 
 Primeros pasos:
 1. Liberemos recursos: cerremos debidamente la conección, el statement y el resultset.
+2. Usemos el nombre del villano a buscar como un parametro en el statement de consulta.

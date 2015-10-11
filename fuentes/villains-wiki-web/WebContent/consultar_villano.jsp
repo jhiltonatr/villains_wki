@@ -22,7 +22,8 @@ if (villainToSearch != null && !villainToSearch.isEmpty()) {
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	try {
-		stmt = connection.prepareStatement("SELECT * FROM villains WHERE dsname = '" + villainToSearch + "'");
+		stmt = connection.prepareStatement("SELECT * FROM villains WHERE dsname = ?");
+		stmt.setString(1, villainToSearch);
 		rs = stmt.executeQuery();
 		if (rs.next()) {
 			villain = rs.getString("dsprofile");

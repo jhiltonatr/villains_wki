@@ -101,3 +101,15 @@ Puntos negativos (sigh... aqui vamos);
 9. La coneccion de la base de datos no es cerrada (Grave error)
 
 Así que si vemos... vamos mejorando, pero nuestros problemas siguen creciendo... y ahora quien podrá ayudarnos??
+
+----------------------------------------------
+	1.2.1 Refactorizando nuestra página
+----------------------------------------------
+Bueno, viendo los 2 análisis anteriores, vemos problemas que son críticos a corregir, y algunos que simplemente hemos dejado pasar de largo, así que soldados de este cruel campo de batalla... les presento la navaja suiza, he digo el refactor.
+
+El refactor es una técnica que nos ayuda a mejorar nuestro código haciendonos preguntas como, Que podría mejorar en este código? el código es legible, otra persona sería capaz de leer mi código y entender que hace?, etc.
+Además la semana pasada nos llego un caso de soporte debido a que la base de datos no puede atender más solicitudes... 
+Y el día de hoy dejamos quemar el chuzo, toda la información de nuestros amados villanos ha desaparecido, alguien inyecto un DELETE... así que ataqueeen!!!
+
+Primeros pasos:
+1. Liberemos recursos: cerremos debidamente la conección, el statement y el resultset.

@@ -1,3 +1,4 @@
+<%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -18,10 +19,24 @@ String villain = "";
 if (villainToSearch != null && !villainToSearch.isEmpty()) {
 	Class.forName("com.mysql.jdbc.Driver");
 	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/villains", "villainApp", "imevil");
-	PreparedStatement stmt = connection.prepareStatement("SELECT * FROM villains WHERE dsname = '" + villainToSearch + "'");
-	ResultSet rs = stmt.executeQuery();
-	if (rs.next()) {
-		villain = rs.getString("dsprofile");
+	PreparedStatement stmt = null;
+	ResultSet rs = null;
+	try {
+		stmt = connection.prepareStatement("SELECT * FROM villains WHERE dsname = '" + villainToSearch + "'");
+		rs = stmt.executeQuery();
+		if (rs.next()) {
+			villain = rs.getString("dsprofile");
+		}
+	} finally {
+		if (rs != null) {
+			rs.close();
+		}
+		if (stmt != null) {
+			stmt.close();
+		}
+		if (connection != null) {
+			connection.close();
+		}
 	}
 }
 %>

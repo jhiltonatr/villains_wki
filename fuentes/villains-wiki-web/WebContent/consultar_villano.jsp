@@ -53,9 +53,9 @@ if (villainToSearch != null && !villainToSearch.isEmpty()) {
 	if (villainToSearch != null && !villainToSearch.trim().isEmpty()) {
 		if (!villain.isEmpty()) { %>
 			<p> We have found <%= villainToSearch %>, <%= villain %></p>
-	<%  } else {
-			out.print("<p>We know nothing about " + villainToSearch + "</p>");			
-		}
+	<%  } else { %>
+			<p>We know nothing about <%= villainToSearch %></p>		
+	<%	}
 	}
 	%>
 </body>

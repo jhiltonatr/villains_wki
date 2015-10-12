@@ -17,7 +17,6 @@ String villainName = request.getParameter("txtVillainName");
 String villainProfile = request.getParameter("txtVillainProfile");
 String villainImage = request.getParameter("txtVillainImage");
 String action = request.getParameter("hdAction");
-String villain = "";
 
 int insertedRows = 0;
 
@@ -43,19 +42,19 @@ if ("SAVE".equals(action)) {
 }
 %>
 <body>
-<h2>Ingresa tu villano favorito</h2>
+<h2>Create your favorite villain</h2>
 	<form method="post" >
 		<input type="hidden" name="hdAction" value="SAVE" />
 		<p>
-			<label for="txtVillainName">Nombre:</label><input type="text" name="txtVillainName" />
+			<label for="txtVillainName">Name:</label><input type="text" name="txtVillainName" />
 		</p>
 		<p>
-			<label for="txtVillainProfile">Información:</label><input type="text" name="txtVillainProfile" />
+			<label for="txtVillainProfile">Profile:</label><input type="text" name="txtVillainProfile" />
 		</p>
 		<p>
-			<label for="txtVillainImage">Foto:</label><input type="text" name="txtVillainImage" />
+			<label for="txtVillainImage">Photo:</label><input type="text" name="txtVillainImage" />
 		</p>
-		<button type="submit">Ingresar</button>
+		<button type="submit">Create</button>
 	</form>
 	<% if (insertedRows > 0) { %>
 			<p>You have created <%= villainName %></p>

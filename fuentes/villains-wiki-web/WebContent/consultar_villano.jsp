@@ -42,12 +42,12 @@ if (villainToSearch != null && !villainToSearch.isEmpty()) {
 }
 %>
 <body>
-<h2>Consulta tu villano favorito</h2>
+<h2>Find your favorite villain</h2>
 	<form method="get" >
 		<p>
-			<label for="txtVillainName">Nombre:</label><input type="text" name="txtVillainName" />
+			<label for="txtVillainName">Name:</label><input type="text" name="txtVillainName" />
 		</p>
-		<button type="submit">Consultar</button>
+		<button type="submit">Find</button>
 	</form>
 	<% 
 	if (villainToSearch != null && !villainToSearch.trim().isEmpty()) {

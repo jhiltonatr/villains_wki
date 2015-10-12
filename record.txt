@@ -93,12 +93,12 @@ Puntos positivos:
 2. Es una base de datos única, y sólo se consulta un villano al tiempo, liberando un poco el problema de memoria que veíamos en la versión anterior.
 Puntos negativos (sigh... aqui vamos);
 1. Continuamos sin tener validaciones
-4. No es una implementación homogenea, ya que algunas veces usamos el tag <%= %>, y otras veces usamoes el objeto "out".
-5. Inyección de html... si estamos siendo juiciosos con la lectura... ya saben que villano buscar.
-6. Lógica de presentación y consulta mezcladas
-7. Cuando ejecutamos la sentencia SQL de consulta, no usamos parametros, por lo que corremos el riesgo de un ataque de inyección de SQL (vuelvance locos con el or 1=1, o hagan el drop de la base de datos... igual tienen los scripts para regenerar la base de datos)
-8. Estamos asumiendo que al consultar por el nombre sólo tenemos un resultado.
-9. La coneccion de la base de datos no es cerrada (Grave error)
+2. No es una implementación homogenea, ya que algunas veces usamos el tag <%= %>, y otras veces usamoes el objeto "out".
+3. Inyección de html... si estamos siendo juiciosos con la lectura... ya saben que villano buscar.
+4. Lógica de presentación y consulta mezcladas
+5. Cuando ejecutamos la sentencia SQL de consulta, no usamos parametros, por lo que corremos el riesgo de un ataque de inyección de SQL (vuelvance locos con el or 1=1, o hagan el drop de la base de datos... igual tienen los scripts para regenerar la base de datos)
+6. Estamos asumiendo que al consultar por el nombre sólo tenemos un resultado.
+7. La coneccion de la base de datos no es cerrada (Grave error)
 
 Así que si vemos... vamos mejorando, pero nuestros problemas siguen creciendo... y ahora quien podrá ayudarnos??
 
@@ -129,3 +129,14 @@ Pero la idea es que la comunidad que use la página pueda ir enriqueciendo nuest
 Si entramos al navegador y vamos a la ruta de la página: http:localhost:<puerto>/villains-wiki-web/ingresar_villano.jsp
 veremos nuestra nueva página, y notaremos que nuestra tabla de villanos ha crecido un poco, ahora, no solo podemos tener la información del perfil, sino que podremos ingresar la ruta de una imagen para identificar a nuestro personaje.
 El script para extender el moodelo lo podemos encontrar en la carpeta: recursos/db/scripts/alter_villains_add_photo.sql
+
+Como es costumbre, el ejercicio final....
+Puntos positivos:
+1. No hemos cometido todos los errores de la parte anterior: mantenemos el estandar de la salida de variables con el tag <%= %>, sólo guardamos la información cuando efectivamente se le da ingresar, cerramos la coneccion a la base de datos.
+
+Puntos negativos:
+1. Nuevamente no tenemos validaciones en nuestra página
+2. Dado que un usuario cualquiera puede ingresar la información, ahora si corremos un riesgo real de inyección de html en la página de busqueda.
+3. Lógica de presentación y acceso a datos mezcladas
+4. La información de coneccion a la base de datos está ahora por toda nuestra aplicación, esto impacta desfavorablemente la mantenibilidad de la aplicación, ya que el costo de cambiar la información de la conección se vuelve cada vez más alto (por el momento lo modificaríamos en 2 lugares)
+5. No exactamente un punto negativo, pero una opción de mejora: como pueden notar, los valores que se toman del request para crear el registro en base de datos, se toman ANTES de saber si se requiere hacer el guardado, podríamos acceder a esta información, únicamente cuando confirmemos que es necesario.

@@ -1,0 +1,1 @@
+ALTER TABLE `villains` ADD `dsphoto` VARCHAR(256) NOT NULL AFTER `dsprofile`;

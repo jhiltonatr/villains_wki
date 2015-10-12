@@ -116,3 +116,16 @@ Primeros pasos:
 2. Usemos el nombre del villano a buscar como un parametro en el statement de consulta.
 3. Si no tenemos el nombre de un villano, no mostremos el mensaje de resultado.
 4. Homogeneicemos la salida del resultado (yo optaré por usar el tag <%= %>).
+
+----------------------------------------------
+	1.3 Administrando la página
+----------------------------------------------
+Algunos nos preguntaremos, porque no continuamos mejorando la página, algo como, poque no evitamos la inyección de HTML, o permitimos buscar por partes del nombre del villano, o refactorizamos para que en la página soporte multiples resultados para el mismo nombre de villano..... pues la respuesta es fácil, no os apresureis, "todo a su debido tiempo".
+
+Por ahora la administración (como agregar, actualizar o eliminar la información de un villano) esta delegada en nosotros mismos por medio de la base de datos, así que nosotros mismos podríamos evitar poner entradas que violen el html de la página.
+
+Pero la idea es que la comunidad que use la página pueda ir enriqueciendo nuestra base de datos, así que porque no habilitamos una página que permita ingresar la información de un nuevo villano? Así que aquí vamos.
+
+Si entramos al navegador y vamos a la ruta de la página: http:localhost:<puerto>/villains-wiki-web/ingresar_villano.jsp
+veremos nuestra nueva página, y notaremos que nuestra tabla de villanos ha crecido un poco, ahora, no solo podemos tener la información del perfil, sino que podremos ingresar la ruta de una imagen para identificar a nuestro personaje.
+El script para extender el moodelo lo podemos encontrar en la carpeta: recursos/db/scripts/alter_villains_add_photo.sql

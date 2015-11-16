@@ -10,4 +10,10 @@ public class ResourceManager {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost/villains", "villainApp", "imevil");
 	}
+	
+	public void closeConnection(Connection connection) throws SQLException {
+		if (connection != null) {
+			connection.close();
+		}
+	}
 }

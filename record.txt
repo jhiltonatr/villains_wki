@@ -142,7 +142,15 @@ Puntos negativos:
 5. No exactamente un punto negativo, pero una opción de mejora: como pueden notar, los valores que se toman del request para crear el registro en base de datos, se toman ANTES de saber si se requiere hacer el guardado, podríamos acceder a esta información, únicamente cuando confirmemos que es necesario.
 
 ----------------------------------------------
-	1.3.1 Refactorizando coneccion a la base de datos
+	1.4 Principios de programación
+----------------------------------------------
+A partir de aquí veremos unos cuantos principios, y buenas prácticas de programación, aunque la mayoría las veremos a medida que avancemos y las requiramos, por ahora les mesionare 3 set de principios (existen más, pero me parecen los 3 set más sencillos de comprender, y son de mucha utilidad), para los lectores que les guste investigar:
+- El principio DRY (lo veremos inmediatamente)
+- Principios SOLID
+- Principios GRASP
+
+----------------------------------------------
+	1.4.1 Refactorizando coneccion a la base de datos
 ----------------------------------------------
 Muy bien compañeros, como se anoto en los puntos negativos del ejercicio anterior, poseemos una grave falencia en la mantenibilidad de nuestra aplicación, así que porque no la correjimos??
 
@@ -167,3 +175,41 @@ Puntos negativos (No cambian mucho con respecto a lo que ya teníamos, ya que ú
 
 Que tal si seguimos aprendiendo un poco de estos principios importantes de la programación??
 En nuestro proximo programa: Principios SOLID (Bueno, sólo la S) por favor sintonizanos.
+
+*******************
+- Corrijo la enumeracion de los pasos, quito la seccion 1.3.1, y muevo el contenido a la seccion 1.4, para ver algunos principios de programación
+*******************
+
+----------------------------------------------
+	1.4.2 Principio de Responsabilidad única
+----------------------------------------------
+Como lo prometimos, iniciaremos a ver un poco de los principios SOLID, en este caso veremos la S. Si esto suena raro, veamos un poco que son los principios SOLID.
+
+SOLID es un acrónimo de 5 principios de programación:
+S Single Responsability Principle
+O Open/Close principle
+L Liskov sustitution principle
+I Interface segregation principle
+D Dependency inversion principle
+
+Por ahora centremonos en lo que dice el primero: 
+Una unidad de código debería tener sólo una razón para cambiar
+Cada responsabilidad es el eje del cambio
+Para contener la propagación del cambio, debemos separar las responsabilidades.
+Si una unidad de código asume más de una responsabilidad, será más sensible al cambio.
+Si una unidad de código asume más de una responsabilidad, las responsabilidades se acoplan.
+
+Aunque en algunas definiciones se acoplan con términos como "clases", prefiero dejarlo cómo unidad de código, ya que puede cumplir en cualquier nivel de abstracción. 
+Por ejemplo digamos que nuestra wiki está finalizada, y veamos a que diferentes niveles de abstracción cumpliría con este principio.
+Como aplicación o componente, la definimos como un wiki para compartir y encontrar información, sobre nuestros villanos favoritos.
+En este momento cumple con este propósito?? SI
+
+A nivel de clases (me gustaría tener un poco más de clases y código para marcar más claramente esto), cada clase, o JSP cumple con una única responsabilidad?? NO, tenemos en las JSP, presentación, y ejecución de acceso a datos, finalización de coneccion a base de datos.
+
+El 'ResourceManagaer' cumple con una única responsabilidad?? SI, El ResourceManager que construimos tiene como responsabilidad la coneccion a base de datos de la aplicación, pero si nos fijamos un poco, está incompleta.
+SI incompleta, si la responsabilidad es manejar la coneccion, no sería responsabilidad del ResourceManager el finalizar la coneccion también??
+
+A nivel de métodos no podemos hacer un análisis ya que el único método claramente declarado es el que se encuentra en el ResourceManager.
+
+En este momento, entonces sólo delegamos al ResourceManager, las operacion de coneccion a la base de datos (tanto apertura, como clausura).
+En nuestra siguiente iteración, haremos algo similar para delegar el acceso a datos a otra unidad de código.

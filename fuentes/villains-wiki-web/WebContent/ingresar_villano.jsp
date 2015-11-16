@@ -36,9 +36,7 @@ if ("SAVE".equals(action)) {
 		if (stmt != null) {
 			stmt.close();
 		}
-		if (connection != null) {
-			connection.close();
-		}
+		connectionManager.closeConnection(connection);
 	}
 }
 %>

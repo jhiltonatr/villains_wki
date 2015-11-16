@@ -36,9 +36,7 @@ if (villainToSearch != null && !villainToSearch.isEmpty()) {
 		if (stmt != null) {
 			stmt.close();
 		}
-		if (connection != null) {
-			connection.close();
-		}
+		connectionManager.closeConnection(connection);
 	}
 }
 %>

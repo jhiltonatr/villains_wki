@@ -245,3 +245,27 @@ Cuando se implementa un patron, es una buena práctica llamar las clases con el 
 Así que nuestra próxima iteración consistirá en:
 Crear nuestra implementación del DAO que se comunique la base de datos.
 Tener una única página de consulta que use una u otra implementación.
+
+----------------------------------------------
+	1.4.4 Usando el patron DAO
+----------------------------------------------
+La mayor ventaja del patron DAO es poder cambiar el origen de información, modificar una de las implementaciones, o crear una nueva implementación teniendo plena confiaza de que las demás no se verán afectadas.
+
+Esto nos habla de otro de los principios SOLID (se acuerdan de ellos?? volvieron!!!), y es el principio Open/Closed
+Este principio nos dice que un buen código debería ser cerrado a modificaciones (el soporte es un tema aparte), y abierto a extensión. Esto quiere decir, que para modificar una funcionalidad existente, no deberíamos modificar el código que ya tenemos y sabemos que funciona, sino que deberíamos extender la funcionalidad existente.
+
+En este caso, la funcionalidad de busqueda en memoria ya vimos que funciona en la iteración anterior, el hecho de implementar la busqueda en la base de datos, NO nos debería implicar hacer cambios en la funcionalidad de busqueda en memoria.
+
+Pero tranquilos, como ya lo dijimos el patron DAO va muy acorde con este principio.
+
+Así que las acciones a tomar serán las siguientes:
+- Crearemos la implemntación de DAO para la base de datos
+- Unificaremos la página de consulta, en la que teniamos inicialmente
+- Esta página tendrá un elemento oculto que no dirá si buscaremos la información en memoria, o en base de datos (esto será temporalmente para mostrar lo sencillo que es cambiar de implementación en un patron DAO)
+- El contrato del DAO y las implementaciones quedarán correctamente nombradas con el patron que implementan.
+- Eliminaremos la página consulta_villanos_memoria.jsp
+
+Resultado:
+Al entrar a la página: http:localhost:<puerto>/villains-wiki-web/consultar_villano_memoria.jsp veremos un combobox que nos permite seleccionar el origen de datos, al buscar 'Loki' en ambos datasource, podemos observar diferentes resultados.
+
+Esto es lo que llaman excelencia..... sólo que NO, mientras implementamos esta solución, cometidos varios errores que violan los principios que ya habiamos estudiado.... así que adivinen.... tenemos que hacer refactor para proteger los principios DRY y Single Responsability Principle (de ahora en adelante SRP)

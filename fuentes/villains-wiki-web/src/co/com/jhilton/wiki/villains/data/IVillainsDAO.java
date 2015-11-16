@@ -2,9 +2,9 @@ package co.com.jhilton.wiki.villains.data;
 
 import co.com.jhilton.wiki.villains.domain.Villain;
 
-public interface IVillainsManager {
+public interface IVillainsDAO {
 
 	Villain getVillainByName(String name);
 	
-	void createVillain(Villain newVillain);
+	int createVillain(Villain newVillain);
 }

@@ -3,10 +3,10 @@ package co.com.jhilton.wiki.villains.data.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import co.com.jhilton.wiki.villains.data.IVillainsManager;
+import co.com.jhilton.wiki.villains.data.IVillainsDAO;
 import co.com.jhilton.wiki.villains.domain.Villain;
 
-public class VillainsManagerInMemoryImpl implements IVillainsManager {
+public class VillainsInMemoryDAOImpl implements IVillainsDAO {
 
 	private static Map<String, Villain> villainsRepository = new HashMap<String, Villain>();
 	
@@ -21,8 +21,9 @@ public class VillainsManagerInMemoryImpl implements IVillainsManager {
 	}
 
 	@Override
-	public void createVillain(Villain newVillain) {
+	public int createVillain(Villain newVillain) {
 		villainsRepository.put(newVillain.getName(), newVillain);
+		return 1;
 	}
 
 }

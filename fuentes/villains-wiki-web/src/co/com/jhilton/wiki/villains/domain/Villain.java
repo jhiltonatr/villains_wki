@@ -4,6 +4,7 @@ public class Villain {
 
 	private String name;
 	private String description;
+	private String imageUrl;
 
 	public Villain(String name, String description) {
 		this.name = name;
@@ -24,6 +25,10 @@ public class Villain {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
 }

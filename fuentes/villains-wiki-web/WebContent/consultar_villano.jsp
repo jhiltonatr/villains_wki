@@ -1,3 +1,4 @@
+<%@page import="co.com.jhilton.wiki.villains.data.ResourceManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -17,8 +18,8 @@ String villainToSearch = request.getParameter("txtVillainName");
 String villain = "";
 
 if (villainToSearch != null && !villainToSearch.isEmpty()) {
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/villains", "villainApp", "imevil");
+	ResourceManager connectionManager = new ResourceManager(); 
+	Connection connection = connectionManager.getConnection();
 	PreparedStatement stmt = null;
 	ResultSet rs = null;
 	try {

@@ -140,3 +140,30 @@ Puntos negativos:
 3. Lógica de presentación y acceso a datos mezcladas
 4. La información de coneccion a la base de datos está ahora por toda nuestra aplicación, esto impacta desfavorablemente la mantenibilidad de la aplicación, ya que el costo de cambiar la información de la conección se vuelve cada vez más alto (por el momento lo modificaríamos en 2 lugares)
 5. No exactamente un punto negativo, pero una opción de mejora: como pueden notar, los valores que se toman del request para crear el registro en base de datos, se toman ANTES de saber si se requiere hacer el guardado, podríamos acceder a esta información, únicamente cuando confirmemos que es necesario.
+
+----------------------------------------------
+	1.3.1 Refactorizando coneccion a la base de datos
+----------------------------------------------
+Muy bien compañeros, como se anoto en los puntos negativos del ejercicio anterior, poseemos una grave falencia en la mantenibilidad de nuestra aplicación, así que porque no la correjimos??
+
+Para ello haremos uso de un principio muy básico y general... les presentamos: (suenan trompetas) el principio DRY!!!! que suenen esos aplausos!!!!
+El principio DRY es una muy, MUY, buena práctica de programación, que básicamente lo que nos habla sobre la duplicidad de código, y lo que dice sobre esta diplicidad es.... Don't Repeat Yourself (You idiot). Bueno lo último se lo agregue yo. 
+
+El tener rutinas y código duplicado, es un problema de mantenibilidad muy grande, ya que en vez de tener un sólo punto de fallo de la aplicación, estamos multiplicando el punto de fallo tantas veces dupliquemos el código, haciendo que sea más costoso, y más riesgoso el hacer un cambio en las rutinas, ya que tenemos que tener en cuenta TODOS estos puntos, y seamos francos, quien tiene la memoria para asegurar que no se quede una rutina sin actualizar.
+
+... pero, algunos nos preguntaremos: cómo podemos implementar este principio??
+Pues realmente es un principio y una buena práctica, no hay un "como" estipulado, existen varias aproximaciones para diferentes ocurrencias. Puede ser tan fácil como simplemente aislar en una unidad de código diferente (entiendase por unidad de código, cualquier cosa dependiendo de la necesidad: metodo, clase, componente...), como crear composiciones complejas de objetos, o usar herencia... entre otras.
+
+Hora de revisar:
+Puntos positivos:
+1. Level Up: Felicitaciones (en horabuena) hemos implementado una de las prácticas más importantes en el proceso de codificación de cualquier aplicación, una buena práctica tan general, que trasciende el lenguaje de programación como tal.
+2. La información de coneccion a la base de datos está ahora en un único punto de nuestra aplicación, ahora realizar el cambio de nuestras credenciales, el conectarnos a una base de datos, diferente, o incluso hacer que la información de coneccion no este quemada en el código, nos implicaría únicamente cambiar la clase 'ResourceManager', y el cambio se reflejaría por toda nuestra aplicación.
+
+Puntos negativos (No cambian mucho con respecto a lo que ya teníamos, ya que únicamente atacamos el problema de duplicidad de código:
+1. Nuevamente no tenemos validaciones en nuestra página
+2. Dado que un usuario cualquiera puede ingresar la información, ahora si corremos un riesgo real de inyección de html en la página de busqueda.
+3. Lógica de presentación y acceso a datos mezcladas
+4. No exactamente un punto negativo, pero una opción de mejora: como pueden notar, los valores que se toman del request para crear el registro en base de datos, se toman ANTES de saber si se requiere hacer el guardado, podríamos acceder a esta información, únicamente cuando confirmemos que es necesario.
+
+Que tal si seguimos aprendiendo un poco de estos principios importantes de la programación??
+En nuestro proximo programa: Principios SOLID (Bueno, sólo la S) por favor sintonizanos.

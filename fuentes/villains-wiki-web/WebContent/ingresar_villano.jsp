@@ -1,3 +1,4 @@
+<%@page import="co.com.jhilton.wiki.villains.data.ResourceManager"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -21,8 +22,8 @@ String action = request.getParameter("hdAction");
 int insertedRows = 0;
 
 if ("SAVE".equals(action)) {
-	Class.forName("com.mysql.jdbc.Driver");
-	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/villains", "villainApp", "imevil");
+	ResourceManager connectionManager = new ResourceManager(); 
+	Connection connection = connectionManager.getConnection();
 	PreparedStatement stmt = null;
 	try {
 		stmt = connection.prepareStatement("INSERT INTO villains(dsname, dsprofile, dsphoto) VALUES (?, ?, ?)");

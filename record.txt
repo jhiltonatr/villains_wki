@@ -213,3 +213,35 @@ A nivel de métodos no podemos hacer un análisis ya que el único método clara
 
 En este momento, entonces sólo delegamos al ResourceManager, las operacion de coneccion a la base de datos (tanto apertura, como clausura).
 En nuestra siguiente iteración, haremos algo similar para delegar el acceso a datos a otra unidad de código.
+
+----------------------------------------------
+	1.4.3 Principio de Responsabilidad única, el retorno
+----------------------------------------------
+Bueno, así que ya sabemos como separar las responsabilidades de los componentes de nuestra aplicación. Entonces porque no realizamos lo mismo para el acceso a datos??
+
+Aunque en este momento definimos que nuestros villanos estan en una base de datos, se acuerdan que inicialemnte las operaciones se hacían en memoria??
+Que sucede si mañana, nos piden que usemos el sistema de archivos??
+o que tenemos una herramienta más avanzada para el acceso a datos, y la tenemos que implementar en nuestro sistema??
+
+PAra resolver estas dudas (aunque soy partidario de dejarle problemas al YO del futuro) la idea no es sólo dejar problemaa, sino tambien herramientas, así que hagamos lo siguiente:
+Tendremos un contrato llamado IVillansManager, que define las operaciones: getVillainByName(String) y createVillain(Villain)
+En esta definición del contrato, tenemos forma de conocer de donde proviene el villano, o donde lo crearemos?? muajajaj NO, es un hueco legal!!!!
+Bueno no es un hueco legal, es simplemente una forma de crear un template para separar las diferentes implementaciones que ocurran en el futuro, así podriamos tener una implementación del contrato, que usa JDBC para acceder a la información, otra implementación para usar archivos, otra implementación para JPA, etc, etc, etc...
+
+Si entramos al navegador y vamos a la ruta de la página: http:localhost:<puerto>/villains-wiki-web/consultar_villano_memoria.jsp
+podremos ver, que sólo existen 2 villanos: Loki y Me, además la descripción de Loki es diferente a la que tenemos configurada en nuestra base de datos.
+
+Además, nuestra página consultar_villano_memoria.jsp, tiene considerablemente menos líneas de código, y no conoce como se obtiene la información que va a presentar. El sólo sabe que le pide a alguien la información, y confpia que la información obtenida es lo que debe mostrar al usuario (única responsabilidad: interactuar con el usuario).
+
+Puntos positivos:
+1. Level Up: Felicitaciones (en horabuena), así sin saber mucho de esto, hemos implemntado un patrón de diseño muy importante (posiblemente uno de los más famosos y antiguos). Tengo el placer de presentarles: El patron DAO (Data Access Object).
+Nuestro nuevo amigo pretende básicamente crear una capa de acceso a datos, presentando un contrato común para la capa de negocio, y separar las diferentes implementaciones que puedan ocurrir.
+
+Puntos no cheveres:
+Sólo tenemos separada la acción de consulta en memoria.
+Duplicamos nuestra página de consulta, sólo para mostrar como podríamos usar el DAO que creamos.
+Cuando se implementa un patron, es una buena práctica llamar las clases con el patron usado, si nos fijamos nuestro contrato, y la clase que lo implementa, se llaman 'Manager', y no 'DAO' como es el patron que usan.
+
+Así que nuestra próxima iteración consistirá en:
+Crear nuestra implementación del DAO que se comunique la base de datos.
+Tener una única página de consulta que use una u otra implementación.
